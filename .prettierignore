@@ -1,0 +1,7 @@
+node_modules
+.next
+package-lock.json
+design/screenshots
+public/logos
+design/logo-candidates
+graphify-out
