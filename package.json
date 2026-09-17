@@ -2,6 +2,16 @@
   "name": "danvar-studio",
   "version": "0.1.0",
   "private": true,
+  "description": "Danvar — an independent five-person product design and software engineering studio. Website source (Next.js, TypeScript, GSAP).",
+  "homepage": "https://aminazarpey.github.io/danvar/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/AminAzarpey/danvar.git"
+  },
+  "author": {
+    "name": "Amin Azarpey",
+    "email": "aminazarpey@gmail.com"
+  },
   "scripts": {
     "dev": "next dev --hostname 127.0.0.1 --port 3000",
     "build": "next build",
