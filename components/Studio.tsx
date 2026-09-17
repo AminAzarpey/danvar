@@ -55,7 +55,7 @@ export default function Studio({ locale }: { locale: Locale }) {
     wheelState.current = { step, go };
   });
   useEffect(() => {
-    const desktop = matchMedia('(min-width: 1000px)');
+    const desktop = matchMedia('(min-width: 1025px)');
     let locked = false;
     function atTop() {
       return window.scrollY <= 2;
@@ -98,6 +98,88 @@ export default function Studio({ locale }: { locale: Locale }) {
     setTimeout(() => URL.revokeObjectURL(url), 1000);
     setSaved(true);
   }
+  const chapterIcons = [
+    <svg
+      key="hello"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      aria-hidden="true"
+    >
+      <path
+        d="M12 3v3.4M12 17.6V21M4 12h3.4M16.6 12H20M6.3 6.3l2.4 2.4M15.3 15.3l2.4 2.4M17.7 6.3l-2.4 2.4M8.7 15.3l-2.4 2.4"
+        strokeLinecap="round"
+      />
+    </svg>,
+    <svg
+      key="people"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      aria-hidden="true"
+    >
+      <circle cx="9" cy="8" r="2.5" />
+      <path d="M4.2 19c0-3 2.2-5 4.8-5s4.8 2 4.8 5" strokeLinecap="round" />
+      <circle cx="17" cy="9.2" r="2" />
+      <path d="M14.6 19c.3-2.2 1.8-3.8 3.4-3.8 1.8 0 3.4 1.6 3.8 3.8" strokeLinecap="round" />
+    </svg>,
+    <svg
+      key="experience"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      aria-hidden="true"
+    >
+      <rect x="3.5" y="8" width="17" height="11" rx="1.6" />
+      <path
+        d="M8.6 8V6.3a1.7 1.7 0 0 1 1.7-1.7h3.4a1.7 1.7 0 0 1 1.7 1.7V8"
+        strokeLinecap="round"
+      />
+      <path d="M3.5 13.2h17" strokeLinecap="round" />
+    </svg>,
+    <svg
+      key="tools"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      aria-hidden="true"
+    >
+      <path
+        d="M14.5 3.6a4 4 0 0 0-5.2 4.8L4.6 13.1l2.6 2.6 4.7-4.7a4 4 0 0 0 4.8-5.2l-2.5 2.5-2-2z"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path d="M5.5 18.5l-1 1" strokeLinecap="round" />
+    </svg>,
+    <svg
+      key="idea"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      aria-hidden="true"
+    >
+      <path
+        d="M9 18h6M10 21h4M8 14a4 4 0 1 1 8 0c-1 1-1.4 1.9-1.4 3.4h-5.2C9.4 15.9 9 15 8 14z"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>,
+  ];
+  const playIcon = playing ? (
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <rect x="6" y="5" width="4.5" height="14" rx="1.2" />
+      <rect x="13.5" y="5" width="4.5" height="14" rx="1.2" />
+    </svg>
+  ) : (
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+      <path d="M8 5.3v13.4a1 1 0 0 0 1.53.85l10.7-6.7a1 1 0 0 0 0-1.7L9.53 4.45A1 1 0 0 0 8 5.3z" />
+    </svg>
+  );
   const title = (label: string, lines: string[], intro: string) => (
     <div className="scene-heading" data-reveal>
       <p className="eyebrow">{label}</p>
@@ -163,7 +245,7 @@ export default function Studio({ locale }: { locale: Locale }) {
         <nav className="chapters" aria-label={c.chaptersLabel}>
           {c.chapters.map((name, i) => (
             <button key={name} onClick={() => go(i)} aria-current={step === i ? 'step' : undefined}>
-              <span>0{i + 1}</span>
+              <span>{chapterIcons[i]}</span>
               <span>{name}</span>
             </button>
           ))}
@@ -375,8 +457,8 @@ export default function Studio({ locale }: { locale: Locale }) {
       </div>
       <footer>
         <div className="player">
-          <button aria-label={playing ? c.pause : c.play} onClick={toggle}>
-            {playing ? 'Ⅱ' : '▷'}
+          <button className="play-toggle" aria-label={playing ? c.pause : c.play} onClick={toggle}>
+            {playIcon}
           </button>
           <div className="progress-tracks" aria-hidden="true" ref={progress}>
             {ids.map((id, i) => (
@@ -400,6 +482,13 @@ export default function Studio({ locale }: { locale: Locale }) {
           {c.skip} ↗
         </button>
       </footer>
+      <button
+        className={'float-play' + (playing ? ' is-playing' : '')}
+        aria-label={playing ? c.pause : c.play}
+        onClick={toggle}
+      >
+        {playIcon}
+      </button>
       <dialog ref={settings} className="preferences" aria-label={c.settings}>
         <button className="close" onClick={() => settings.current?.close()}>
           {c.close} ×

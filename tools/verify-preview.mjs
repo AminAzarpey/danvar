@@ -87,7 +87,7 @@ const motionPage = await motionContext.newPage();
 await motionPage.goto('http://127.0.0.1:3000/en');
 await motionPage.getByRole('button', { name: 'Pause story' }).waitFor();
 await motionPage.waitForTimeout(9000);
-assert.equal(await motionPage.locator('.chapters [aria-current]').innerText(), '02\nOur people');
+assert.equal(await motionPage.locator('.chapters [aria-current]').innerText(), 'Our people');
 await motionPage.getByRole('button', { name: 'Pause story' }).click();
 await motionPage.getByRole('button', { name: 'Play story' }).waitFor();
 await motionContext.close();

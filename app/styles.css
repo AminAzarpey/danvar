@@ -165,8 +165,18 @@ header {
   align-items: center;
 }
 .chapters button > span:first-child {
-  font-size: 12px;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
   opacity: 1;
+}
+.chapters button > span:first-child svg {
+  width: 22px;
+  height: 22px;
 }
 .chapters button[aria-current] {
   color: var(--text);
@@ -175,10 +185,6 @@ header {
 .chapters button[aria-current] > span:first-child {
   background: var(--primary);
   color: var(--onPrimary);
-  border-radius: 50%;
-  padding: 8px;
-  opacity: 1;
-  margin-inline-start: -8px;
 }
 .stage {
   width: 100%;
@@ -595,6 +601,11 @@ footer {
   font-size: 17px;
   padding: 10px;
 }
+.play-toggle svg {
+  width: 17px;
+  height: 17px;
+  display: block;
+}
 .progress-tracks {
   display: flex;
   gap: 5px;
@@ -625,6 +636,9 @@ footer {
   font-size: 13px;
   white-space: nowrap;
 }
+.float-play {
+  display: none;
+}
 dialog {
   background: var(--surface);
   color: var(--text);
@@ -634,6 +648,31 @@ dialog {
   width: min(540px, 90vw);
   max-height: 85svh;
   box-shadow: 0 30px 100px #0003;
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  transition:
+    opacity 0.24s ease,
+    transform 0.24s ease,
+    overlay 0.24s ease allow-discrete,
+    display 0.24s ease allow-discrete;
+}
+@starting-style {
+  dialog[open] {
+    opacity: 0;
+    transform: scale(0.94) translateY(14px);
+  }
+}
+dialog::backdrop {
+  transition:
+    opacity 0.24s ease,
+    overlay 0.24s ease allow-discrete,
+    display 0.24s ease allow-discrete;
+  opacity: 1;
+}
+@starting-style {
+  dialog[open]::backdrop {
+    opacity: 0;
+  }
 }
 dialog::backdrop {
   background: #0006;
@@ -696,16 +735,82 @@ dialog label {
     height: 240px;
   }
 }
-@media (max-width: 1000px) {
+@media (max-width: 1024px) {
   .studio {
     padding: 0 5%;
-  }
-  .chapters {
-    width: 90px;
+    padding-bottom: 78px;
   }
   .workspace {
+    display: block;
     gap: 3%;
-    min-height: 650px;
+    min-height: 0;
+  }
+  /* A thumb-reach dock, not an inline nav row: fixed to the viewport so
+     switching chapters on a phone or tablet feels like an app tab bar, not a
+     scroll gesture that fights the page's own scroll. */
+  .chapters {
+    position: fixed;
+    inset-inline: 0;
+    bottom: 0;
+    z-index: 40;
+    width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 4px;
+    padding: 10px max(4%, env(safe-area-inset-left)) calc(10px + env(safe-area-inset-bottom));
+    background: color-mix(in srgb, var(--surface) 92%, transparent);
+    backdrop-filter: blur(16px);
+    border-top: 1px solid color-mix(in srgb, var(--text) 12%, transparent);
+  }
+  .chapters button {
+    font-size: 11px;
+    gap: 5px;
+    flex-direction: column;
+    padding: 4px 0;
+  }
+  /* The dock already shows/sets the current chapter, so the old inline
+     play/progress row is redundant weight; keep only a floating play toggle. */
+  footer .player {
+    display: none;
+  }
+  .float-play {
+    display: flex;
+    position: fixed;
+    inset-inline-end: max(16px, env(safe-area-inset-right));
+    bottom: calc(88px + env(safe-area-inset-bottom));
+    z-index: 41;
+    width: 58px;
+    height: 58px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--primary);
+    color: var(--onPrimary);
+    box-shadow: 0 12px 28px color-mix(in srgb, var(--primary) 55%, transparent);
+    transition:
+      transform 0.15s ease,
+      box-shadow 0.2s ease;
+  }
+  .float-play svg {
+    width: 22px;
+    height: 22px;
+  }
+  .float-play:active {
+    transform: scale(0.9);
+  }
+  .float-play.is-playing {
+    animation: float-play-pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes float-play-pulse {
+    0%,
+    100% {
+      box-shadow: 0 12px 28px color-mix(in srgb, var(--primary) 55%, transparent);
+    }
+    50% {
+      box-shadow:
+        0 12px 28px color-mix(in srgb, var(--primary) 55%, transparent),
+        0 0 0 9px color-mix(in srgb, var(--primary) 22%, transparent);
+    }
   }
   h1 {
     letter-spacing: -2px;
@@ -760,42 +865,8 @@ dialog label {
     width: 36px;
     height: 36px;
   }
-  .workspace {
-    display: block;
-    min-height: 0;
-  }
-  /* A thumb-reach dock, not an inline nav row: fixed to the viewport so
-     switching chapters on a phone feels like an app tab bar, not a scroll
-     gesture that fights the page's own scroll. */
-  .chapters {
-    position: fixed;
-    inset-inline: 0;
-    bottom: 0;
-    z-index: 40;
-    width: 100%;
-    flex-direction: row;
-    justify-content: space-between;
-    gap: 4px;
-    padding: 10px max(4%, env(safe-area-inset-left)) calc(10px + env(safe-area-inset-bottom));
-    background: color-mix(in srgb, var(--surface) 92%, transparent);
-    backdrop-filter: blur(16px);
-    border-top: 1px solid color-mix(in srgb, var(--text) 12%, transparent);
-  }
   .chapters button {
     font-size: 10px;
-    gap: 4px;
-    flex-direction: column;
-    padding: 4px 0;
-  }
-  .chapters button[aria-current] > span:first-child {
-    margin: 0;
-    padding: 5px;
-  }
-  .chapters button > span:first-child {
-    padding: 5px;
-  }
-  .studio {
-    padding-bottom: 78px;
   }
   .stage {
     padding: 40px 0;
@@ -920,5 +991,19 @@ dialog label {
   .portrait,
   .company img {
     animation: none !important;
+  }
+  dialog,
+  dialog::backdrop {
+    transition: none !important;
+  }
+  .float-play.is-playing {
+    animation: none !important;
+  }
+  @starting-style {
+    dialog[open],
+    dialog[open]::backdrop {
+      opacity: 1;
+      transform: none;
+    }
   }
 }
