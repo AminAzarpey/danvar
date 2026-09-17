@@ -1,0 +1,133 @@
+{
+  "status": "design-proposal",
+  "selection": {
+    "defaultMode": "system",
+    "defaultPalette": "almond",
+    "variation": "new-session",
+    "persistWithinSession": true,
+    "explicitPreferenceWins": true,
+    "fingerprinting": false
+  },
+  "palettes": [
+    {
+      "id": "almond",
+      "name": "بادامی",
+      "light": {
+        "background": "#F8F4EF",
+        "surface": "#FFFCF8",
+        "text": "#29231F",
+        "muted": "#685B52",
+        "primary": "#D7B79D",
+        "onPrimary": "#29231F"
+      },
+      "dark": {
+        "background": "#201C19",
+        "surface": "#2B2521",
+        "text": "#F6EDE4",
+        "muted": "#C5B6A8",
+        "primary": "#DEC1A8",
+        "onPrimary": "#29231F"
+      }
+    },
+    {
+      "id": "rose",
+      "name": "رز خاکی",
+      "light": {
+        "background": "#FAF3F1",
+        "surface": "#FFFAF8",
+        "text": "#302323",
+        "muted": "#705B5B",
+        "primary": "#D6AFAC",
+        "onPrimary": "#302323"
+      },
+      "dark": {
+        "background": "#211B1C",
+        "surface": "#2D2426",
+        "text": "#F7EBE8",
+        "muted": "#C9B3B1",
+        "primary": "#E1BBB6",
+        "onPrimary": "#302323"
+      }
+    },
+    {
+      "id": "clay",
+      "name": "سفالی ملایم",
+      "light": {
+        "background": "#F8F1EA",
+        "surface": "#FFF9F4",
+        "text": "#30241E",
+        "muted": "#735D50",
+        "primary": "#D8A88C",
+        "onPrimary": "#30241E"
+      },
+      "dark": {
+        "background": "#221C18",
+        "surface": "#2E251F",
+        "text": "#F7EBDF",
+        "muted": "#CBB6A4",
+        "primary": "#E1B497",
+        "onPrimary": "#30241E"
+      }
+    },
+    {
+      "id": "sand",
+      "name": "شنی",
+      "light": {
+        "background": "#F6F3EC",
+        "surface": "#FCFAF4",
+        "text": "#292720",
+        "muted": "#656153",
+        "primary": "#CEC0A1",
+        "onPrimary": "#292720"
+      },
+      "dark": {
+        "background": "#1E1D19",
+        "surface": "#29271F",
+        "text": "#F3EEE1",
+        "muted": "#C0BBA9",
+        "primary": "#DACEB0",
+        "onPrimary": "#292720"
+      }
+    },
+    {
+      "id": "sage",
+      "name": "سبز مریم‌گلی",
+      "light": {
+        "background": "#F2F4EE",
+        "surface": "#FAFCF7",
+        "text": "#252D25",
+        "muted": "#536350",
+        "primary": "#B6C5AA",
+        "onPrimary": "#252D25"
+      },
+      "dark": {
+        "background": "#1C211C",
+        "surface": "#252D25",
+        "text": "#EEF2E8",
+        "muted": "#B5C2AF",
+        "primary": "#C1CFB6",
+        "onPrimary": "#252D25"
+      }
+    },
+    {
+      "id": "mist",
+      "name": "آبی مه‌آلود",
+      "light": {
+        "background": "#F0F3F5",
+        "surface": "#F8FBFC",
+        "text": "#242C32",
+        "muted": "#526371",
+        "primary": "#ADC2CF",
+        "onPrimary": "#242C32"
+      },
+      "dark": {
+        "background": "#1B2025",
+        "surface": "#242D34",
+        "text": "#EDF2F5",
+        "muted": "#B0C0CB",
+        "primary": "#BDCEDA",
+        "onPrimary": "#242C32"
+      }
+    }
+  ]
+}
