@@ -316,6 +316,7 @@ export const copy = {
     contactTitle: ['What’s on', 'your mind?'],
     contactIntro:
       'A new idea, an existing product, or a challenge you’re still figuring out. Start wherever you are.',
+    needsLabel: 'What are you looking for?',
     needs: ['A new product', 'A better experience', 'Reliable infrastructure', 'AI & automation'],
     placeholder: 'A few words about what you want to build…',
     download: 'Save my project brief',
@@ -382,6 +383,7 @@ export const copy = {
     contactTitle: ['چی تو', 'ذهنته؟'],
     contactIntro:
       'یک ایده تازه، بهترکردن محصول فعلی، یا مسئله‌ای که هنوز داری کشفش می‌کنی. از همان‌جا شروع کنیم.',
+    needsLabel: 'دنبال چی می‌گردی؟',
     needs: ['محصول تازه', 'تجربه بهتر', 'زیرساخت مطمئن', 'هوش مصنوعی و اتوماسیون'],
     placeholder: 'چند خط درباره چیزی که دوست داری بسازی…',
     download: 'ذخیره شرح پروژه',
@@ -446,6 +448,7 @@ export const copy = {
     contactLabel: 'كل منتج جيد يبدأ بفكرة',
     contactTitle: ['ما الذي', 'تفكّر فيه؟'],
     contactIntro: 'فكرة جديدة، منتج تريد تطويره، أو تحدٍ ما زلت تستكشفه. لنبدأ من حيث أنت.',
+    needsLabel: 'عمّ تبحث؟',
     needs: ['منتج جديد', 'تجربة أفضل', 'بنية موثوقة', 'الذكاء الاصطناعي والأتمتة'],
     placeholder: 'بضع كلمات حول ما تريد بناءه…',
     download: 'احفظ موجز المشروع',

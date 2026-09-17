@@ -486,6 +486,12 @@ h1 em {
   background: var(--surface);
   padding: 30px;
   border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.needs-label {
+  margin: 0 0 12px;
 }
 .needs {
   display: flex;
@@ -514,7 +520,6 @@ textarea {
   color: var(--text);
   font-size: 13px;
   line-height: 1.8;
-  margin-bottom: 25px;
 }
 textarea::placeholder {
   color: var(--muted);

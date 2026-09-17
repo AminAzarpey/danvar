@@ -302,19 +302,22 @@ export default function Studio({ locale }: { locale: Locale }) {
               <p className="small">{c.contactNote}</p>
             </div>
             <div className="brief" data-reveal>
-              <div className="needs">
-                {c.needs.map((n) => (
-                  <button
-                    aria-pressed={need === n}
-                    key={n}
-                    onClick={() => {
-                      setNeed(n);
-                      setSaved(false);
-                    }}
-                  >
-                    {n}
-                  </button>
-                ))}
+              <div>
+                <p className="small needs-label">{c.needsLabel}</p>
+                <div className="needs">
+                  {c.needs.map((n) => (
+                    <button
+                      aria-pressed={need === n}
+                      key={n}
+                      onClick={() => {
+                        setNeed(n);
+                        setSaved(false);
+                      }}
+                    >
+                      {n}
+                    </button>
+                  ))}
+                </div>
               </div>
               <textarea
                 aria-label={c.placeholder}
