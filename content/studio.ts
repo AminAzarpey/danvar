@@ -104,7 +104,7 @@ export const stacks = [
   {
     id: 'mobile',
     title: ['Mobile experiences', 'تجربه موبایل', 'تطبيقات الجوال'],
-    people: ['parham'],
+    people: ['parham', 'amin'],
     items: [
       'Flutter',
       'Dart',
@@ -118,6 +118,7 @@ export const stacks = [
       'Codemagic',
       'Platform channels',
       'PKI / eKYC',
+      'Capacitor',
     ],
   },
   {
