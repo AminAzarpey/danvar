@@ -1,0 +1,57 @@
+{
+  "checked": "2026-09-12",
+  "snapp_provenance": "https://commons.wikimedia.org/wiki/File:Snapp!_logo_(Farsi).svg",
+  "assets": [
+    {
+      "id": "mahak",
+      "source": "https://mahak-charity.org/wp-content/themes/kalhors-mahak/images/logo.svg",
+      "path": "/logos/mahak.svg",
+      "bytes": 33739,
+      "status": "downloaded"
+    },
+    {
+      "id": "doctoreto",
+      "source": "https://doctoreto.com/images/doctoreto-logo.png",
+      "path": "/logos/doctoreto.png",
+      "bytes": 8208,
+      "status": "downloaded"
+    },
+    {
+      "id": "snapp",
+      "source": "https://static.cdnlogo.com/logos/s/90/snapp.svg",
+      "path": "/logos/snapp.svg",
+      "bytes": 2647,
+      "status": "downloaded"
+    },
+    {
+      "id": "tourism-bank",
+      "source": "https://logobanks.ir/images/bank/gardeshgari.svg",
+      "note": "third-party SVG",
+      "path": "/logos/tourism-bank.svg"
+    },
+    {
+      "id": "cbi",
+      "source": "https://logobanks.ir/images/bank/bank-markazi.svg",
+      "note": "not displayed; relationship unverified",
+      "path": "/logos/cbi.svg"
+    },
+    {
+      "id": "melal-bank",
+      "source": "https://logoyab.com/wp-content/uploads/2025/06/Melal-Credit-Institution-Logo-1030x1030.png",
+      "note": "third-party PNG",
+      "path": "/logos/melal-bank.png"
+    },
+    {
+      "id": "pgpic",
+      "source": "https://www.google.com/s2/favicons?domain=pgpic.ir&sz=256",
+      "note": "cached site icon",
+      "path": "/logos/pgpic.png"
+    },
+    {
+      "id": "monoppy",
+      "source": "https://www.google.com/s2/favicons?domain=monoppy.ir&sz=256",
+      "note": "cached site icon",
+      "path": "/logos/monoppy.png"
+    }
+  ]
+}

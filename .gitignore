@@ -22,6 +22,9 @@ private/
 /docs/
 /design/
 
+# Unused/unverified third-party logo; not displayed on the site
+/public/logos/cbi.svg
+
 # Local tooling and logs
 __pycache__/
 *.pyc
