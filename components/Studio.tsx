@@ -2,6 +2,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import { useStory, chapterIds as ids } from '@/lib/use-story';
+import { assetPath } from '@/lib/asset-path';
 import { useAppearance } from '@/lib/use-appearance';
 import { companies, copy, Locale, stacks, team } from '@/content/studio';
 import palettes from '@/content/nude-palettes.json';
@@ -48,6 +49,32 @@ export default function Studio({ locale }: { locale: Locale }) {
   useEffect(() => {
     if (detail) profile.current?.showModal();
   }, [detail]);
+  const wheelState = useRef({ step, go });
+  useEffect(() => {
+    wheelState.current = { step, go };
+  });
+  useEffect(() => {
+    const desktop = matchMedia('(min-width: 1000px)');
+    let locked = false;
+    function onWheel(event: WheelEvent) {
+      if (!desktop.matches || locked) return;
+      if (settings.current?.open || profile.current?.open) return;
+      const target = event.target as HTMLElement;
+      if (target.closest('textarea, input, .tool-panel, dialog')) return;
+      if (Math.abs(event.deltaY) < 12) return;
+      const { step: current, go: navigate } = wheelState.current;
+      const next = event.deltaY > 0 ? current + 1 : current - 1;
+      if (next < 0 || next > 4) return;
+      event.preventDefault();
+      locked = true;
+      navigate(next);
+      setTimeout(() => {
+        locked = false;
+      }, 700);
+    }
+    window.addEventListener('wheel', onWheel, { passive: false });
+    return () => window.removeEventListener('wheel', onWheel);
+  }, []);
   function download() {
     const blob = new Blob([`Danvar — Project brief\n\n${need}\n\n${brief}`], {
       type: 'text/plain;charset=utf-8',
@@ -181,7 +208,7 @@ export default function Studio({ locale }: { locale: Locale }) {
                   <div className="portrait">
                     {p.photo ? (
                       <Image
-                        src={p.photo}
+                        src={assetPath(p.photo)}
                         alt={locale === 'en' ? p.name : p.fa}
                         fill
                         sizes="(max-width: 640px) 45vw, 20vw"
@@ -218,7 +245,7 @@ export default function Studio({ locale }: { locale: Locale }) {
                 >
                   {co.logo ? (
                     <Image
-                      src={co.logo}
+                      src={assetPath(co.logo)}
                       alt={locale === 'en' ? co.name : co.fa}
                       width={85}
                       height={52}
@@ -298,9 +325,14 @@ export default function Studio({ locale }: { locale: Locale }) {
                   setSaved(false);
                 }}
               />
-              <button className="primary" onClick={download} disabled={!brief.trim()}>
-                {c.download} ↗
-              </button>
+              <div className="actions">
+                <button className="primary" onClick={download} disabled={!brief.trim()}>
+                  {c.download} ↗
+                </button>
+                <a className="text-button" href="mailto:aminazarpey@gmail.com">
+                  {c.emailUs} ↗
+                </a>
+              </div>
               <p className="small" role="status">
                 {saved ? c.downloaded : ' '}
               </p>
@@ -316,7 +348,9 @@ export default function Studio({ locale }: { locale: Locale }) {
           <div className="progress-tracks" aria-hidden="true" ref={progress}>
             {ids.map((id, i) => (
               <span key={id}>
-                <i style={{ transform: `scaleX(${i < step ? 1 : 0})` }} />
+                <i
+                  style={{ transform: `scaleX(${i < step || (i === step && !playing) ? 1 : 0})` }}
+                />
               </span>
             ))}
           </div>

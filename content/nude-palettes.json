@@ -2,7 +2,7 @@
   "status": "design-proposal",
   "selection": {
     "defaultMode": "system",
-    "defaultPalette": "almond",
+    "defaultPalette": "mist",
     "variation": "new-session",
     "persistWithinSession": true,
     "explicitPreferenceWins": true,

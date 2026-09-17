@@ -18,12 +18,8 @@ next-env.d.ts
 private/
 
 # Internal planning docs and design review material; not for the public repo
-/README.md
 /docs/
 /design/
-
-# Unused/unverified third-party logo; not displayed on the site
-/public/logos/cbi.svg
 
 # Local tooling and logs
 __pycache__/

@@ -3,7 +3,7 @@ import { useEffect, useSyncExternalStore } from 'react';
 import palettes from '@/content/nude-palettes.json';
 
 type Appearance = { palette: string; mode: string; pinned: boolean };
-const fallback: Appearance = { palette: 'almond', mode: 'system', pinned: false };
+const fallback: Appearance = { palette: 'mist', mode: 'system', pinned: false };
 let snapshot = fallback;
 const listeners = new Set<() => void>();
 function subscribe(listener: () => void) {
@@ -17,7 +17,7 @@ function subscribe(listener: () => void) {
       /* Optional storage. */
     }
     snapshot = {
-      palette: root.dataset.palette || 'almond',
+      palette: root.dataset.palette || 'mist',
       mode: root.dataset.mode || 'system',
       pinned,
     };
@@ -40,7 +40,9 @@ export function useAppearance() {
       const theme =
         appearance.mode === 'system' ? (media.matches ? 'dark' : 'light') : appearance.mode;
       const palette =
-        palettes.palettes.find((p) => p.id === appearance.palette) || palettes.palettes[0];
+        palettes.palettes.find((p) => p.id === appearance.palette) ||
+        palettes.palettes.find((p) => p.id === 'mist') ||
+        palettes.palettes[0];
       const root = document.documentElement;
       root.dataset.theme = theme;
       root.dataset.mode = appearance.mode;

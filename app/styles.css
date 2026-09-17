@@ -1,10 +1,10 @@
 :root {
-  --background: #f5f1eb;
-  --surface: #fffdf9;
-  --text: #292723;
-  --muted: #645d54;
-  --primary: #d5bca4;
-  --onPrimary: #292723;
+  --background: #f0f3f5;
+  --surface: #f8fbfc;
+  --text: #242c32;
+  --muted: #526371;
+  --primary: #adc2cf;
+  --onPrimary: #242c32;
 }
 * {
   box-sizing: border-box;
@@ -343,16 +343,12 @@ h1 em {
 }
 .portrait-photo {
   object-fit: cover;
-  object-position: top center;
-  filter: grayscale(0.15);
-  transition:
-    transform 0.5s ease,
-    filter 0.5s ease;
+  object-position: center;
+  transition: transform 0.5s ease;
 }
 .person:hover .portrait-photo,
 .person:focus-visible .portrait-photo {
   transform: scale(1.04);
-  filter: grayscale(0);
 }
 .person-number {
   position: absolute;
