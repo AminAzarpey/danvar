@@ -1,6 +1,7 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useStory, chapterIds as ids } from '@/lib/use-story';
 import { assetPath } from '@/lib/asset-path';
 import { useAppearance } from '@/lib/use-appearance';
@@ -106,7 +107,7 @@ export default function Studio({ locale }: { locale: Locale }) {
             : 'انتقل إلى المحتوى'}
       </a>
       <header>
-        <a className="brand" href={'/' + locale} aria-label="Danvar">
+        <Link className="brand" href={'/' + locale} aria-label="Danvar">
           <svg viewBox="0 0 100 90" aria-hidden="true">
             <path
               fill="currentColor"
@@ -116,13 +117,17 @@ export default function Studio({ locale }: { locale: Locale }) {
           <span>
             danvar<span className="brand-dot">.</span>
           </span>
-        </a>
+        </Link>
         <span className="descriptor">{c.descriptor}</span>
         <nav className="languages" aria-label={c.language}>
           {(['en', 'fa', 'ar'] as Locale[]).map((l) => (
-            <a key={l} href={`/${l}#${ids[step]}`} aria-current={locale === l ? 'page' : undefined}>
+            <Link
+              key={l}
+              href={`/${l}#${ids[step]}`}
+              aria-current={locale === l ? 'page' : undefined}
+            >
               {l.toUpperCase()}
-            </a>
+            </Link>
           ))}
         </nav>
         <button

@@ -17,6 +17,9 @@ next-env.d.ts
 # Local source material; publish selected assets deliberately
 private/
 
+# Licensed font; used locally, never redistributed via the public repo
+/public/fonts/yekanbakh/
+
 # Internal planning docs and design review material; not for the public repo
 /docs/
 /design/

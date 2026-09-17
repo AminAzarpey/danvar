@@ -6,6 +6,20 @@
   --primary: #adc2cf;
   --onPrimary: #242c32;
 }
+/* Licensed font, present only in local builds; public deploys fall back to
+   the open-source fonts below when these files are absent. */
+@font-face {
+  font-family: 'YekanBakh';
+  src: url('/fonts/yekanbakh/YekanBakh-VF.woff2') format('woff2-variations');
+  font-weight: 100 900;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'YekanBakhFa';
+  src: url('/fonts/yekanbakh/YekanBakhFaNum-VF.woff2') format('woff2-variations');
+  font-weight: 100 900;
+  font-display: swap;
+}
 * {
   box-sizing: border-box;
 }
@@ -13,7 +27,10 @@ body {
   margin: 0;
   background: var(--background);
   color: var(--text);
-  font-family: var(--font-latin), var(--font-arabic), sans-serif;
+  font-family: 'YekanBakh', var(--font-latin), var(--font-arabic), sans-serif;
+}
+:lang(fa) {
+  font-family: 'YekanBakhFa', 'YekanBakh', var(--font-arabic), var(--font-latin), sans-serif;
 }
 button,
 a,
