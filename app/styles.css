@@ -764,17 +764,28 @@ dialog label {
     display: block;
     min-height: 0;
   }
+  /* A thumb-reach dock, not an inline nav row: fixed to the viewport so
+     switching chapters on a phone feels like an app tab bar, not a scroll
+     gesture that fights the page's own scroll. */
   .chapters {
+    position: fixed;
+    inset-inline: 0;
+    bottom: 0;
+    z-index: 40;
     width: 100%;
     flex-direction: row;
     justify-content: space-between;
     gap: 4px;
-    padding-top: 19px;
+    padding: 10px max(4%, env(safe-area-inset-left)) calc(10px + env(safe-area-inset-bottom));
+    background: color-mix(in srgb, var(--surface) 92%, transparent);
+    backdrop-filter: blur(16px);
+    border-top: 1px solid color-mix(in srgb, var(--text) 12%, transparent);
   }
   .chapters button {
-    font-size: 11px;
-    gap: 5px;
+    font-size: 10px;
+    gap: 4px;
     flex-direction: column;
+    padding: 4px 0;
   }
   .chapters button[aria-current] > span:first-child {
     margin: 0;
@@ -782,6 +793,9 @@ dialog label {
   }
   .chapters button > span:first-child {
     padding: 5px;
+  }
+  .studio {
+    padding-bottom: 78px;
   }
   .stage {
     padding: 40px 0;

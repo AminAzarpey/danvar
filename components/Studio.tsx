@@ -57,12 +57,22 @@ export default function Studio({ locale }: { locale: Locale }) {
   useEffect(() => {
     const desktop = matchMedia('(min-width: 1000px)');
     let locked = false;
+    function atTop() {
+      return window.scrollY <= 2;
+    }
+    function atBottom() {
+      return window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2;
+    }
     function onWheel(event: WheelEvent) {
       if (!desktop.matches || locked) return;
       if (settings.current?.open || profile.current?.open) return;
       const target = event.target as HTMLElement;
       if (target.closest('textarea, input, .tool-panel, dialog')) return;
       if (Math.abs(event.deltaY) < 12) return;
+      // Only hijack the wheel once the user has already reached the end of the
+      // chapter's own scroll; otherwise let them read the content normally.
+      if (event.deltaY > 0 && !atBottom()) return;
+      if (event.deltaY < 0 && !atTop()) return;
       const { step: current, go: navigate } = wheelState.current;
       const next = event.deltaY > 0 ? current + 1 : current - 1;
       if (next < 0 || next > 4) return;
@@ -75,44 +85,6 @@ export default function Studio({ locale }: { locale: Locale }) {
     }
     window.addEventListener('wheel', onWheel, { passive: false });
     return () => window.removeEventListener('wheel', onWheel);
-  }, []);
-  useEffect(() => {
-    let startY = 0;
-    let startedAtTop = false;
-    let startedAtBottom = false;
-    let locked = false;
-    function onTouchStart(event: TouchEvent) {
-      startY = event.touches[0].clientY;
-      // Read the boundary before the gesture starts: momentum scrolling can
-      // still be settling at touchend, making scrollY unreliable there.
-      startedAtTop = window.scrollY <= 2;
-      startedAtBottom =
-        window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2;
-    }
-    function onTouchEnd(event: TouchEvent) {
-      if (locked) return;
-      if (settings.current?.open || profile.current?.open) return;
-      const target = event.target as HTMLElement;
-      if (target.closest('textarea, input, .tool-panel, dialog')) return;
-      const deltaY = startY - event.changedTouches[0].clientY;
-      if (Math.abs(deltaY) < 60) return;
-      const { step: current, go: navigate } = wheelState.current;
-      const next = deltaY > 0 ? current + 1 : current - 1;
-      if (next < 0 || next > 4) return;
-      if (deltaY > 0 && !startedAtBottom) return;
-      if (deltaY < 0 && !startedAtTop) return;
-      locked = true;
-      navigate(next);
-      setTimeout(() => {
-        locked = false;
-      }, 700);
-    }
-    window.addEventListener('touchstart', onTouchStart, { passive: true });
-    window.addEventListener('touchend', onTouchEnd, { passive: true });
-    return () => {
-      window.removeEventListener('touchstart', onTouchStart);
-      window.removeEventListener('touchend', onTouchEnd);
-    };
   }, []);
   function download() {
     const blob = new Blob([`Danvar — Project brief\n\n${need}\n\n${brief}`], {
@@ -317,10 +289,11 @@ export default function Studio({ locale }: { locale: Locale }) {
           </section>
           <section className="scene" hidden={step !== 3} aria-label={c.chapters[3]}>
             {title(c.stackLabel, c.stackTitle, c.stackIntro)}
-            <div className="tool-layout" data-reveal>
+            <div className="tool-layout">
               <div className="tool-tabs">
                 {stacks.map((s, i) => (
                   <button
+                    data-reveal
                     key={s.id}
                     aria-pressed={stack === i}
                     onClick={() => {
@@ -334,7 +307,7 @@ export default function Studio({ locale }: { locale: Locale }) {
                   </button>
                 ))}
               </div>
-              <div className="tool-panel">
+              <div className="tool-panel" data-reveal>
                 <p className="eyebrow">{stacks[stack].title[lang]}</p>
                 <div className="tags" dir="ltr">
                   {stacks[stack].items.map((t) => (
@@ -354,7 +327,9 @@ export default function Studio({ locale }: { locale: Locale }) {
           <section className="scene contact" hidden={step !== 4} aria-label={c.chapters[4]}>
             <div>
               {title(c.contactLabel, c.contactTitle, c.contactIntro)}
-              <p className="small">{c.contactNote}</p>
+              <p className="small" data-reveal>
+                {c.contactNote}
+              </p>
             </div>
             <div className="brief" data-reveal>
               <div>
