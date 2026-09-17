@@ -44,7 +44,7 @@ export function useStory() {
 
   useEffect(() => {
     if (!playing || step === 4) return;
-    const duration = step === 0 ? 8000 : 12000;
+    const duration = step === 0 ? 5000 : 7000;
     let previous = performance.now();
     const timer = setInterval(() => {
       const now = performance.now();
@@ -66,6 +66,7 @@ export function useStory() {
     elapsed.current = 0;
     setStep(next);
     history.replaceState(null, '', '#' + chapterIds[next]);
+    window.scrollTo(0, 0);
   }
   function toggle() {
     if (step === 4) {

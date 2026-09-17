@@ -76,6 +76,43 @@ export default function Studio({ locale }: { locale: Locale }) {
     window.addEventListener('wheel', onWheel, { passive: false });
     return () => window.removeEventListener('wheel', onWheel);
   }, []);
+  useEffect(() => {
+    let startY = 0;
+    let locked = false;
+    function isAtTop() {
+      return window.scrollY <= 2;
+    }
+    function isAtBottom() {
+      return window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2;
+    }
+    function onTouchStart(event: TouchEvent) {
+      startY = event.touches[0].clientY;
+    }
+    function onTouchEnd(event: TouchEvent) {
+      if (locked) return;
+      if (settings.current?.open || profile.current?.open) return;
+      const target = event.target as HTMLElement;
+      if (target.closest('textarea, input, .tool-panel, dialog')) return;
+      const deltaY = startY - event.changedTouches[0].clientY;
+      if (Math.abs(deltaY) < 60) return;
+      const { step: current, go: navigate } = wheelState.current;
+      const next = deltaY > 0 ? current + 1 : current - 1;
+      if (next < 0 || next > 4) return;
+      if (deltaY > 0 && !isAtBottom()) return;
+      if (deltaY < 0 && !isAtTop()) return;
+      locked = true;
+      navigate(next);
+      setTimeout(() => {
+        locked = false;
+      }, 700);
+    }
+    window.addEventListener('touchstart', onTouchStart, { passive: true });
+    window.addEventListener('touchend', onTouchEnd, { passive: true });
+    return () => {
+      window.removeEventListener('touchstart', onTouchStart);
+      window.removeEventListener('touchend', onTouchEnd);
+    };
+  }, []);
   function download() {
     const blob = new Blob([`Danvar — Project brief\n\n${need}\n\n${brief}`], {
       type: 'text/plain;charset=utf-8',
@@ -107,7 +144,15 @@ export default function Studio({ locale }: { locale: Locale }) {
             : 'انتقل إلى المحتوى'}
       </a>
       <header>
-        <Link className="brand" href={'/' + locale} aria-label="Danvar">
+        <Link
+          className="brand"
+          href={'/' + locale}
+          aria-label="Danvar"
+          onClick={(e) => {
+            e.preventDefault();
+            go(0);
+          }}
+        >
           <svg viewBox="0 0 100 90" aria-hidden="true">
             <path
               fill="currentColor"
@@ -201,14 +246,15 @@ export default function Studio({ locale }: { locale: Locale }) {
                   data-reveal
                   className={'person ' + (p.id === 'amin' ? 'center-person' : '')}
                   key={p.id}
-                  onClick={() =>
+                  onClick={() => {
+                    setPlaying(false);
                     setDetail({
                       title: locale === 'en' ? p.name : p.fa,
                       text: p.experience,
                       tags: p.skills,
                       link: p.link,
-                    })
-                  }
+                    });
+                  }}
                 >
                   <div className="portrait">
                     {p.photo ? (
@@ -219,6 +265,7 @@ export default function Studio({ locale }: { locale: Locale }) {
                         sizes="(max-width: 640px) 45vw, 20vw"
                         className="portrait-photo"
                         priority={p.id === 'amin'}
+                        onLoad={(e) => e.currentTarget.parentElement?.classList.add('img-loaded')}
                       />
                     ) : (
                       <span className="initials">{p.initials}</span>
@@ -241,12 +288,13 @@ export default function Studio({ locale }: { locale: Locale }) {
                   data-reveal
                   className="company"
                   key={co.id}
-                  onClick={() =>
+                  onClick={() => {
+                    setPlaying(false);
                     setDetail({
                       title: locale === 'en' ? co.name : co.fa,
                       text: co.people + ' — ' + co.context[lang],
-                    })
-                  }
+                    });
+                  }}
                 >
                   {co.logo ? (
                     <Image
@@ -255,6 +303,7 @@ export default function Studio({ locale }: { locale: Locale }) {
                       width={85}
                       height={52}
                       sizes="85px"
+                      onLoad={(e) => e.currentTarget.classList.add('img-loaded')}
                     />
                   ) : (
                     <strong>{co.name}</strong>

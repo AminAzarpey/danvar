@@ -28,6 +28,7 @@ body {
   background: var(--background);
   color: var(--text);
   font-family: 'YekanBakh', var(--font-latin), var(--font-arabic), sans-serif;
+  font-weight: 450;
 }
 :lang(fa) {
   font-family: 'YekanBakhFa', 'YekanBakh', var(--font-arabic), var(--font-latin), sans-serif;
@@ -114,7 +115,7 @@ header {
   color: var(--muted);
 }
 .descriptor {
-  font-size: 12px;
+  font-size: 14px;
   color: var(--muted);
   max-width: 155px;
   line-height: 1.7;
@@ -123,7 +124,7 @@ header {
   display: flex;
   gap: 17px;
   margin-inline-start: auto;
-  font-size: 11px;
+  font-size: 13px;
 }
 .languages a {
   opacity: 1;
@@ -157,14 +158,14 @@ header {
 .chapters button {
   display: flex;
   gap: 13px;
-  font-size: 11px;
+  font-size: 13px;
   color: var(--muted);
   text-align: start;
   padding: 9px 0;
   align-items: center;
 }
 .chapters button > span:first-child {
-  font-size: 10px;
+  font-size: 12px;
   opacity: 1;
 }
 .chapters button[aria-current] {
@@ -198,7 +199,7 @@ header {
   align-items: center;
 }
 .eyebrow {
-  font-size: 10px;
+  font-size: 12px;
   letter-spacing: 2px;
   font-weight: 600;
   margin: 0 0 24px;
@@ -227,7 +228,7 @@ h1 em {
   font-style: normal;
 }
 .intro {
-  font-size: 14px;
+  font-size: 16px;
   line-height: 1.9;
   max-width: 540px;
   color: var(--muted);
@@ -245,15 +246,15 @@ h1 em {
   color: var(--background);
   padding: 17px 22px;
   border-radius: 5px;
-  font-size: 12px;
+  font-size: 14px;
 }
 .text-button {
-  font-size: 12px;
+  font-size: 14px;
   padding: 16px 0;
   border-bottom: 1px solid var(--muted);
 }
 .small {
-  font-size: 11px;
+  font-size: 13px;
   color: var(--muted);
   line-height: 1.9;
 }
@@ -272,7 +273,7 @@ h1 em {
 .notebook-top {
   display: flex;
   justify-content: space-between;
-  font-size: 9px;
+  font-size: 11px;
   letter-spacing: 1.4px;
 }
 .paper-sketch {
@@ -306,11 +307,11 @@ h1 em {
   align-items: center;
   gap: 18px;
   padding: 18px 0;
-  font-size: 13px;
+  font-size: 15px;
 }
 .paper-row small {
   opacity: 1;
-  font-size: 10px;
+  font-size: 12px;
 }
 .paper-row b {
   margin-inline-start: auto;
@@ -338,9 +339,25 @@ h1 em {
   text-align: start;
   min-width: 0;
 }
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
 .portrait {
   height: 190px;
-  background: color-mix(in srgb, var(--primary) 30%, var(--surface));
+  background-color: color-mix(in srgb, var(--primary) 30%, var(--surface));
+  background-image: linear-gradient(
+    100deg,
+    transparent 30%,
+    color-mix(in srgb, var(--surface) 70%, transparent) 50%,
+    transparent 70%
+  );
+  background-size: 250% 100%;
+  animation: shimmer 1.6s ease-in-out infinite;
   border-radius: 70px 70px 4px 4px;
   display: flex;
   align-items: center;
@@ -348,8 +365,12 @@ h1 em {
   position: relative;
   overflow: hidden;
 }
+.portrait.img-loaded {
+  animation: none;
+  background-image: none;
+}
 .center-person .portrait {
-  background: var(--primary);
+  background-color: var(--primary);
   color: var(--onPrimary);
 }
 .initials {
@@ -371,7 +392,7 @@ h1 em {
   position: absolute;
   top: 28px;
   left: 24px;
-  font-size: 9px;
+  font-size: 11px;
   opacity: 1;
   z-index: 1;
   padding: 3px 7px;
@@ -395,16 +416,16 @@ h1 em {
   backdrop-filter: blur(4px);
 }
 .person h2 {
-  font-size: 14px;
+  font-size: 16px;
   margin: 19px 0 7px;
   font-weight: 500;
 }
 .person .role {
-  font-size: 10px;
+  font-size: 12px;
   margin: 0 0 5px;
 }
 .person .small {
-  font-size: 9px;
+  font-size: 11px;
   margin: 0;
 }
 .caption {
@@ -431,9 +452,16 @@ h1 em {
   height: 52px;
   object-fit: contain;
   filter: grayscale(1);
-  background: #fff;
+  background-color: #fff;
+  background-image: linear-gradient(100deg, transparent 30%, rgb(0 0 0 / 6%) 50%, transparent 70%);
+  background-size: 250% 100%;
+  animation: shimmer 1.6s ease-in-out infinite;
   border-radius: 4px;
   padding: 4px;
+}
+.company img.img-loaded {
+  animation: none;
+  background-image: none;
 }
 .company strong {
   font-size: 26px;
@@ -443,7 +471,7 @@ h1 em {
   place-items: center;
 }
 .company span {
-  font-size: 9px;
+  font-size: 11px;
   color: var(--muted);
 }
 .company:hover {
@@ -460,7 +488,7 @@ h1 em {
   width: 100%;
   padding: 18px 12px;
   border-bottom: 1px solid color-mix(in srgb, var(--text) 12%, transparent);
-  font-size: 12px;
+  font-size: 14px;
   gap: 18px;
   text-align: start;
 }
@@ -473,7 +501,7 @@ h1 em {
   margin-inline-start: auto;
 }
 .tool-tabs small {
-  font-size: 9px;
+  font-size: 11px;
 }
 .tool-panel {
   background: var(--surface);
@@ -488,13 +516,13 @@ h1 em {
   margin: 20px 0 32px;
 }
 .tags span {
-  font-size: 12px;
+  font-size: 14px;
   border: 1px solid color-mix(in srgb, var(--text) 18%, transparent);
   padding: 9px 12px;
   border-radius: 4px;
 }
 .tool-panel > p:last-child {
-  font-size: 13px;
+  font-size: 15px;
 }
 .contact .small {
   max-width: 340px;
@@ -519,7 +547,7 @@ h1 em {
   border: 1px solid color-mix(in srgb, var(--text) 20%, transparent);
   padding: 12px 14px;
   border-radius: 30px;
-  font-size: 11px;
+  font-size: 13px;
 }
 .needs button[aria-pressed='true'] {
   background: var(--primary);
@@ -535,7 +563,7 @@ textarea {
   background: transparent;
   padding: 23px 0;
   color: var(--text);
-  font-size: 13px;
+  font-size: 15px;
   line-height: 1.8;
 }
 textarea::placeholder {
@@ -547,7 +575,7 @@ footer {
   display: flex;
   align-items: center;
   gap: 30px;
-  font-size: 10px;
+  font-size: 12px;
 }
 .player {
   display: flex;
@@ -577,7 +605,7 @@ footer {
   background: var(--text);
 }
 .counter {
-  font-size: 9px;
+  font-size: 11px;
   color: var(--muted);
   white-space: nowrap;
 }
@@ -586,7 +614,7 @@ footer {
   margin: auto;
 }
 .skip {
-  font-size: 11px;
+  font-size: 13px;
   white-space: nowrap;
 }
 dialog {
@@ -609,7 +637,7 @@ dialog h2 {
   margin-top: 30px;
 }
 dialog h3 {
-  font-size: 13px;
+  font-size: 15px;
   margin-top: 30px;
 }
 dialog > p {
@@ -618,7 +646,7 @@ dialog > p {
 .close {
   display: block;
   margin-inline-start: auto;
-  font-size: 12px;
+  font-size: 14px;
   padding: 7px;
 }
 .swatches {
@@ -630,7 +658,7 @@ dialog > p {
   display: flex;
   align-items: center;
   gap: 9px;
-  font-size: 10px;
+  font-size: 12px;
   padding: 9px;
   border: 1px solid transparent;
   border-radius: 5px;
@@ -647,7 +675,7 @@ dialog label {
   display: flex;
   gap: 12px;
   margin-top: 23px;
-  font-size: 12px;
+  font-size: 14px;
 }
 .profile-link {
   margin-top: 15px;
@@ -688,7 +716,7 @@ dialog label {
     height: 150px;
   }
   .person h2 {
-    font-size: 12px;
+    font-size: 14px;
   }
   .footer-note {
     display: none;
@@ -736,7 +764,7 @@ dialog label {
     padding-top: 19px;
   }
   .chapters button {
-    font-size: 9px;
+    font-size: 11px;
     gap: 5px;
     flex-direction: column;
   }
@@ -769,12 +797,12 @@ dialog label {
     height: 115px;
   }
   .eyebrow {
-    font-size: 9px;
+    font-size: 11px;
     letter-spacing: 1.3px;
     margin-bottom: 18px;
   }
   .intro {
-    font-size: 13px;
+    font-size: 15px;
   }
   .scene:not(.hero):not(.contact) h1 {
     font-size: 35px;
@@ -801,13 +829,13 @@ dialog label {
     height: 175px;
   }
   .person h2 {
-    font-size: 14px;
+    font-size: 16px;
   }
   .person .role {
-    font-size: 11px;
+    font-size: 13px;
   }
   .person .small {
-    font-size: 10px;
+    font-size: 12px;
   }
   .company-grid {
     grid-template-columns: repeat(2, 1fr);
@@ -847,10 +875,10 @@ dialog label {
     padding: 9px;
   }
   .skip {
-    font-size: 9px;
+    font-size: 11px;
   }
   .counter {
-    font-size: 8px;
+    font-size: 10px;
   }
   dialog {
     padding: 25px;
@@ -866,5 +894,9 @@ dialog label {
   .portrait-photo {
     transition: none !important;
     transform: none !important;
+  }
+  .portrait,
+  .company img {
+    animation: none !important;
   }
 }
