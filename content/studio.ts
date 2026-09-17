@@ -17,7 +17,7 @@ export const team = [
     initials: 'PH',
     photo: '/team/parham.jpg',
     name: 'Parham Hatanian',
-    fa: 'پرهام حتانیان',
+    fa: 'پرهام حاتانیان',
     role: 'Mobile Engineer',
     focus: 'Flutter · Native integrations',
     skills: ['Flutter', 'Dart', 'Swift', 'Kotlin', 'BLoC', 'Digital signing'],
@@ -337,7 +337,7 @@ export const copy = {
   fa: {
     brand: 'دانور',
     descriptor: 'طراحی محصول و مهندسی نرم‌افزار',
-    chapters: ['سلام', 'آدم‌های تیم', 'تجربه‌ها', 'ابزارهای ما', 'ایده تو'],
+    chapters: ['سلام', 'اعضای تیم', 'تجربه‌ها', 'ابزارهای ما', 'ایده تو'],
     settings: 'اینجا راحت باش',
     settingsHint: 'کمی بیشتر شبیه سلیقه تو. تنظیمات در همین مرورگر می‌ماند.',
     close: 'بستن',

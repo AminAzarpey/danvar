@@ -78,15 +78,16 @@ export default function Studio({ locale }: { locale: Locale }) {
   }, []);
   useEffect(() => {
     let startY = 0;
+    let startedAtTop = false;
+    let startedAtBottom = false;
     let locked = false;
-    function isAtTop() {
-      return window.scrollY <= 2;
-    }
-    function isAtBottom() {
-      return window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2;
-    }
     function onTouchStart(event: TouchEvent) {
       startY = event.touches[0].clientY;
+      // Read the boundary before the gesture starts: momentum scrolling can
+      // still be settling at touchend, making scrollY unreliable there.
+      startedAtTop = window.scrollY <= 2;
+      startedAtBottom =
+        window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 2;
     }
     function onTouchEnd(event: TouchEvent) {
       if (locked) return;
@@ -98,8 +99,8 @@ export default function Studio({ locale }: { locale: Locale }) {
       const { step: current, go: navigate } = wheelState.current;
       const next = deltaY > 0 ? current + 1 : current - 1;
       if (next < 0 || next > 4) return;
-      if (deltaY > 0 && !isAtBottom()) return;
-      if (deltaY < 0 && !isAtTop()) return;
+      if (deltaY > 0 && !startedAtBottom) return;
+      if (deltaY < 0 && !startedAtTop) return;
       locked = true;
       navigate(next);
       setTimeout(() => {
